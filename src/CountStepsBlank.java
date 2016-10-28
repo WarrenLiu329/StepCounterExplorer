@@ -21,7 +21,7 @@ public class CountStepsBlank {
 	 * 
 	 * @return an int representing the number of steps
 	 */
-	private static int countSteps(double[] times, double[][] sensorData) {
+	static int countSteps(double[] times, double[][] sensorData) {
 		return 0;
 	}
 
@@ -73,7 +73,7 @@ public class CountStepsBlank {
 	 *            the mean of the data (must be pre-calculated).
 	 * @return the standard deviation of the data.
 	 */
-	private static double calculateStandardDeviation(double[] arr, double mean) {
+	static double calculateStandardDeviation(double[] arr, double mean) {
 		return 0.0;
 	}
 
@@ -84,7 +84,7 @@ public class CountStepsBlank {
 	 *            the array of values
 	 * @return the mean of the data
 	 */
-	private static double calculateMean(double[] arr) {
+	static double calculateMean(double[] arr) {
 		return 0.0;
 	}
 

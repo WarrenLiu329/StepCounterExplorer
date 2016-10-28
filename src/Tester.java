@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import processing.core.PApplet;
 
 public class Tester {
@@ -18,9 +20,15 @@ public class Tester {
 		double[][] accelerationData = ArrayHelper.extractColumns(sampleData, new int[] { 4, 5, 6 });
 
 		double[] accelerationMagnitudes = CountStepsBlank.calculateMagnitudesFor(accelerationData);
+		
+		double[] steps = StepCounter.countSteps(time, accelerationData);
 
 		double[][] displayData = ArrayHelper.combineAsColumns(time, accelerationMagnitudes);
 		
-		DataExplorer.runDataExplorer(displayData, new String[] {"time" ,"mags"}, videofile);
+		double[][] correspondStepsToTime = ArrayHelper.combineAsColumns(time, steps);
+		
+		//DataExplorer.runDataExplorer(displayData, new String[] {"time" ,"mags"}, videofile);
+		
+		System.out.println(Arrays.toString(ArrayHelper.extractColumn(ArrayHelper.extractColumns(correspondStepsToTime, cols), colIndex)))
 	}
 }
