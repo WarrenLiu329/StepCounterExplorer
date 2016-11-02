@@ -1,15 +1,17 @@
 
 public class StepCounter {
 
-
 	public static double[] countSteps(double[] times, double[][] sensorData) {
 		double[] steps = new double[times.length];
 		double[] magnitudes = calculateMagnitudesFor(sensorData);
 		double mean = calculateMean(magnitudes);
 		double standardDeviation = calculateStandardDeviation(magnitudes, mean);
 		for (int i = 1; i < magnitudes.length - 1; i++) {
+			//System.out.println(isPeak(magnitudes, i));
+		//	System.out.println(magnitudes.length);
+			//System.out.println(magnitudes[i]);
 			if (isPeak(magnitudes, i)) {
-				if (magnitudes[i]>mean+standardDeviation) {
+				if (magnitudes[i] >= mean + standardDeviation) {
 					steps[i]++;
 				}
 			}
@@ -23,8 +25,8 @@ public class StepCounter {
 	}
 
 	public static double[] calculateMagnitudesFor(double[][] sensorData) {
-		double[] magnitudes = new double[sensorData[0].length];
-		for (int i = 0; i < sensorData[0].length; i++) {
+		double[] magnitudes = new double[sensorData.length];
+		for (int i = 0; i < sensorData.length; i++) {
 			magnitudes[i] = calculateMagnitude(sensorData[i][0], sensorData[i][1], sensorData[i][2]);
 		}
 		return magnitudes;
@@ -35,7 +37,7 @@ public class StepCounter {
 		for (int i = 0; i < arr.length; i++) {
 			standardDeviation += (arr[i] - mean) * (arr[i] - mean);
 		}
-		standardDeviation = standardDeviation / (arr.length - 1);
+		standardDeviation = standardDeviation / (double) ((arr.length - 1) - 1);
 
 		return Math.sqrt(standardDeviation);
 	}
@@ -46,7 +48,7 @@ public class StepCounter {
 			mean += arr[i];
 		}
 
-		return (double) mean / arr.length;
+		return (double) mean / (double) arr.length;
 	}
 
 	/****
@@ -63,6 +65,16 @@ public class StepCounter {
 		}
 		return false;
 	}
-	
-	
+
+	public static int getNumSteps(double[] arr) {
+		int count = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == 1) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+
 }
