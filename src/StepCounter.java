@@ -76,5 +76,13 @@ public class StepCounter {
 
 		return count;
 	}
+	
+	public static double getThresholdForSection(double[] arr, int startingIndex, int n) {
+		double[] magnitudes = CSVData.getPartOfArray(arr, startingIndex - n, startingIndex + n);
+		double mean = calculateMean(magnitudes);
+		double standardDeviation = calculateStandardDeviation(magnitudes, mean);
+		double threshold = mean + standardDeviation;
+		return threshold;
+	}
 
 }

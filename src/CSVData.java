@@ -99,4 +99,9 @@ public class CSVData {
 			System.err.println(string);
 		}
 	}
+
+	public static double[] getPartOfArray(double[] arr, int i, int j) {
+		
+		return null;
+	}
 }
