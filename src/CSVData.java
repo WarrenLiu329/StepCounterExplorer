@@ -11,39 +11,39 @@ public class CSVData {
 	private CSVData(double[][] data) {
 		rawData = data;
 	}
-	
+
 	public static CSVData createDataSet(String filepath, int linesToSkip) {
 		debug("Reading file: " + filepath);
-		
+
 		String data = readFileAsString(filepath);
 		String[] lines = data.split("\n");
-		
+
 		debug("Reading " + lines.length + " total lines from file");
 		debug("Using index " + (linesToSkip) + " as header row");
-		
+
 		String headerLine = lines[linesToSkip];
 		debug("Headers: " + headerLine);
-		
+
 		String[] headers = headerLine.split(",");
 		debug("Parsed header line into: " + headers.length + " total columns");
-		
+
 		int startColumn = 0;
 		return createDataSet(filepath, linesToSkip + 1, headers, startColumn);
 	}
-	
+
 	public static CSVData createDataSet(String filepath, int linesToSkip, String[] columnHeaders, int startColumn) {
 		debug("Reading file: " + filepath);
-		
+
 		String data = readFileAsString(filepath);
 		String[] lines = data.split("\n");
-		
+
 		debug("Reading " + lines.length + " total lines from file");
-		
+
 		int numColumns = columnHeaders.length;
 		debug("Reading " + numColumns + " total columns");
-		
+
 		int startRow = linesToSkip;
-		
+
 		// create storage for data
 		double[][] numdata = new double[lines.length - linesToSkip][numColumns];
 
@@ -52,7 +52,8 @@ public class CSVData {
 			String[] coords = line.split(",");
 
 			for (int j = startColumn; j < numColumns; j++) {
-				if (coords[j].endsWith("#")) coords[j] = coords[j].substring(0, coords[j].length()-1);
+				if (coords[j].endsWith("#"))
+					coords[j] = coords[j].substring(0, coords[j].length() - 1);
 				double val = Double.parseDouble(coords[j]);
 				numdata[r - 1][j - startColumn] = val;
 			}
@@ -60,13 +61,11 @@ public class CSVData {
 
 		return new CSVData(numdata);
 	}
-	
+
 	public double[][] getAllData() {
 		return rawData;
 	}
-	
-	
-		
+
 	public static void writeDataToFile(String filePath, String data) {
 		File outFile = new File(filePath);
 
@@ -76,7 +75,7 @@ public class CSVData {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static String readFileAsString(String filepath) {
 		StringBuilder output = new StringBuilder();
 
@@ -92,16 +91,19 @@ public class CSVData {
 
 		return output.toString();
 	}
-	
-	
+
 	private static void debug(String string) {
-		if (DEBUG ) {
+		if (DEBUG) {
 			System.err.println(string);
 		}
 	}
 
 	public static double[] getPartOfArray(double[] arr, int i, int j) {
-		
-		return null;
+		double[] output = new double[arr.length];
+		for (int a = i; a < j + 1; a++){
+			output[a] = arr[a];
+		}
+		return output;
 	}
+
 }
