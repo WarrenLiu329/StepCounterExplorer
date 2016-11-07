@@ -4,7 +4,7 @@ import processing.core.PApplet;
 
 public class Tester {
 	public static double[][] sampleData;
-	public static String datafile = "data/walkingSampleData-out.txt";
+	public static String datafile = "data/anklewalk_11steps_after5seconds_before5seconds_straightpath.csv";
 	public static String videofile = "data/walkingSampleData.mp4";
 
 	public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class Tester {
 
 		double[] accelerationMagnitudes = CountStepsBlank.calculateMagnitudesFor(accelerationData);
 
-		double[] steps = StepCounter.countSteps(time, accelerationData);
+		double[] steps = StepCounter.countSteps(accelerationData , 2);
 		//System.out.println(Arrays.toString(steps));
 		double[][] displayData = ArrayHelper.combineAsColumns(time, accelerationMagnitudes);
 

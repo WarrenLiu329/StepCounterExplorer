@@ -98,10 +98,12 @@ public class CSVData {
 		}
 	}
 
-	public static double[] getPartOfArray(double[] arr, int i, int j) {
-		double[] output = new double[arr.length];
-		for (int a = i; a < j + 1; a++){
-			output[a] = arr[a];
+public static double[] getPartOfArray(double[] arr, int startingIndex, int endingIndex,  int n, int currentIndex) {
+		double[] output = new double[(currentIndex+n)-(currentIndex-n)];
+		int p = 0;
+		for (int a = startingIndex; a < endingIndex; a++){
+			output[p] = arr[a];
+			p++;
 		}
 		return output;
 	}

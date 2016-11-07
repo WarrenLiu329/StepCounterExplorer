@@ -1,22 +1,23 @@
 
 public class StepCounter {
-//aaaaa
+	// aaaaa
 	public static double[] countSteps(double[][] sensorData, int n) {
 		double[] magnitudes = calculateMagnitudesFor(sensorData);
 		double[] steps = new double[magnitudes.length];
-//		double mean = calculateMean(magnitudes);
-//		double standardDeviation = calculateStandardDeviation(magnitudes, mean);
-//		for (int i = 1; i < magnitudes.length - 1; i++) {
-//			if (isPeak(magnitudes[i], magnitudes[i - 1], magnitudes[i + 1])) {
-//				if (Math.abs(magnitudes[i] - mean) > standardDeviation)
-//					steps++;
-//			}
-//		}
-		System.out.println(magnitudes.length);
-		for(int i = Math.max(0, n); i < Math.min(magnitudes.length-n, n); i++){
-			double threshold = getThresholdForSection(magnitudes, i, n);
+		// double mean = calculateMean(magnitudes);
+		// double standardDeviation = calculateStandardDeviation(magnitudes,
+		// mean);
+		// for (int i = 1; i < magnitudes.length - 1; i++) {
+		// if (isPeak(magnitudes[i], magnitudes[i - 1], magnitudes[i + 1])) {
+		// if (Math.abs(magnitudes[i] - mean) > standardDeviation)
+		// steps++;
+		// }
+		// }
+		for (int i = 1; i < magnitudes.length - 1; i++) {
 			if (isPeak(magnitudes[i], magnitudes[i - 1], magnitudes[i + 1])) {
-				if (magnitudes[i] > threshold)steps[i]++;
+				double threshold = getThresholdForSection(magnitudes, i, n);
+				if (magnitudes[i] >= threshold)
+					steps[i]++;
 			}
 		}
 		return steps;
@@ -36,11 +37,12 @@ public class StepCounter {
 
 	public static double calculateStandardDeviation(double[] arr, double mean) {
 		double standardDeviation = 0;
+		double SD = 0;
 		for (double i : arr) {
 			standardDeviation += ((i - mean) * (i - mean));
 		}
-		standardDeviation /= (arr.length - 1);
-		return Math.sqrt(standardDeviation);
+		SD = standardDeviation / (double) ((arr.length - 1) - 1);
+		return Math.sqrt(SD);
 	}
 
 	private static double calculateMean(double[] arr) {
@@ -48,7 +50,7 @@ public class StepCounter {
 		for (double i : arr) {
 			sum += i;
 		}
-		double mean = sum / arr.length;
+		double mean = (double) sum / (double) arr.length;
 		return mean;
 	}
 
@@ -77,11 +79,22 @@ public class StepCounter {
 	 *            values left and right of startingIndex to use in window
 	 * @return threshold for this window
 	 */
-	private static double getThresholdForSection(double[] arr, int startingIndex, int n) {
-		double[] magnitudes = CSVData.getPartOfArray(arr, Math.max(startingIndex - n, 0), Math.min(arr.length-1, startingIndex + n));
+	private static double getThresholdForSection(double[] arr, int currentIndex, int n) {
+		double[] magnitudes = CSVData.getPartOfArray(arr, Math.max(currentIndex - n, 0),
+				Math.min(currentIndex + n, arr.length - 1), n, currentIndex);
 		double mean = calculateMean(magnitudes);
 		double standardDeviation = calculateStandardDeviation(magnitudes, mean);
 		double threshold = mean + standardDeviation;
 		return threshold;
+	}
+
+	public static int getNumSteps(double[] arr) {
+		int steps = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == 1) {
+				steps++;
+			}
+		}
+		return steps;
 	}
 }
