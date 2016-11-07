@@ -1,9 +1,9 @@
 
 public class StepCounter {
 //aaaaa
-	public static int countSteps(double[][] sensorData) {
-		int steps = 0;
+	public static double[] countSteps(double[][] sensorData, int n) {
 		double[] magnitudes = calculateMagnitudesFor(sensorData);
+		double[] steps = new double[magnitudes.length];
 //		double mean = calculateMean(magnitudes);
 //		double standardDeviation = calculateStandardDeviation(magnitudes, mean);
 //		for (int i = 1; i < magnitudes.length - 1; i++) {
@@ -12,12 +12,11 @@ public class StepCounter {
 //					steps++;
 //			}
 //		}
-		int n = 10;
 		System.out.println(magnitudes.length);
-		for(int i = n; i < magnitudes.length - n; i++){
+		for(int i = Math.max(0, n); i < Math.min(magnitudes.length-n, n); i++){
 			double threshold = getThresholdForSection(magnitudes, i, n);
 			if (isPeak(magnitudes[i], magnitudes[i - 1], magnitudes[i + 1])) {
-				if (magnitudes[i] > threshold)steps++;
+				if (magnitudes[i] > threshold)steps[i]++;
 			}
 		}
 		return steps;
@@ -79,7 +78,7 @@ public class StepCounter {
 	 * @return threshold for this window
 	 */
 	private static double getThresholdForSection(double[] arr, int startingIndex, int n) {
-		double[] magnitudes = CSVData.getPartOfArray(arr, startingIndex - n, startingIndex + n);
+		double[] magnitudes = CSVData.getPartOfArray(arr, Math.max(startingIndex - n, 0), Math.min(arr.length-1, startingIndex + n));
 		double mean = calculateMean(magnitudes);
 		double standardDeviation = calculateStandardDeviation(magnitudes, mean);
 		double threshold = mean + standardDeviation;
