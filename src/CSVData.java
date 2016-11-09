@@ -115,11 +115,7 @@ public class CSVData {
 		}
 	}
 	
-	public void undoConvert(double[][]arr){
-		for (int r = 0; r < arr.length; r++) {
-			arr[r][0] *= 1000.0;
-		}
-	}
+
 
 	public String getHugeStringOfData(double[][] arr) {
 		String output = "times (ms),x-accel,y-accel,z-accel \n ";

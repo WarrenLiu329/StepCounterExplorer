@@ -4,7 +4,7 @@ import processing.core.PApplet;
 
 public class Tester {
 	public static double[][] sampleData;
-	public static String datafile = "data/accel18steps11secRightPocket.csv";
+	public static String datafile = "data/accel18step11secLeftArm.csv";
 	public static String videofile = "data/walkingSampleData.mp4";
 
 	public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class Tester {
 		
 		// Get 2d array of all data
 		sampleData = dataset.getAllData();
-		dataset.undoConvert(sampleData);
+		dataset.convertIntoMS(sampleData);
 		dataset.writeDataToFile(datafile, dataset.getHugeStringOfData(sampleData));
 		
 		// Extract columns for time, and x acceleration, y acceleration, z
