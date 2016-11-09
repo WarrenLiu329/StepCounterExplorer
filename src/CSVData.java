@@ -10,6 +10,7 @@ public class CSVData {
 
 	private CSVData(double[][] data) {
 		rawData = data;
+		convertIntoMS(rawData);
 	}
 
 	public static CSVData createDataSet(String filepath, int linesToSkip) {
@@ -66,7 +67,7 @@ public class CSVData {
 		return rawData;
 	}
 
-	public static void writeDataToFile(String filePath, String data) {
+	public void writeDataToFile(String filePath, String data) {
 		File outFile = new File(filePath);
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
@@ -98,13 +99,34 @@ public class CSVData {
 		}
 	}
 
-public static double[] getPartOfArray(double[] arr, int startingIndex, int endingIndex,  int n, int currentIndex) {
-		double[] output = new double[(currentIndex+n)-(currentIndex-n)];
+	public static double[] getPartOfArray(double[] arr, int startingIndex, int endingIndex, int n, int currentIndex) {
+		double[] output = new double[(currentIndex + n) - (currentIndex - n)];
 		int p = 0;
-		for (int a = startingIndex; a < endingIndex; a++){
+		for (int a = startingIndex; a < endingIndex; a++) {
 			output[p] = arr[a];
 			p++;
 		}
+		return output;
+	}
+
+	public void convertIntoMS(double[][] arr) {
+		for (int r = 0; r < arr.length; r++) {
+			arr[r][0] /= 1000.0;
+		}
+	}
+
+	public String getHugeStringOfData(double[][] arr) {
+		String output = "times (ms),x-accel,y-accel,z-accel \n ";
+		for (int r = 0; r < arr.length; r++) {
+			for (int c = 0; c < arr[0].length; c++) {
+				if (c == arr[0].length - 1) {
+					output += arr[r][c] + "\n";
+				} else {
+					output += arr[r][c] + ",";
+				}
+			}
+		}
+		output += "\n";
 		return output;
 	}
 
