@@ -111,7 +111,13 @@ public class CSVData {
 
 	public void convertIntoMS(double[][] arr) {
 		for (int r = 0; r < arr.length; r++) {
-			arr[r][0] /= 1000.0;
+			arr[r][0] = 1/arr[r][0];
+		}
+	}
+	
+	public void undoConvert(double[][]arr){
+		for (int r = 0; r < arr.length; r++) {
+			arr[r][0] *= 1000.0;
 		}
 	}
 
