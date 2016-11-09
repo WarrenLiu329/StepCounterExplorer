@@ -14,26 +14,26 @@ public class Tester {
 		
 		// Get 2d array of all data
 		sampleData = dataset.getAllData();
-		dataset.writeDataToFile(datafile, dataset.getHugeStringOfData(sampleData));
+	//	dataset.writeDataToFile(datafile, dataset.getHugeStringOfData(sampleData));
 		// Extract columns for time, and x acceleration, y acceleration, z
 		// acceleration
-//		double[] time = ArrayHelper.extractColumn(sampleData, 0);
-//		double[][] accelerationData = ArrayHelper.extractColumns(sampleData, new int[] { 1,2,3 });
-//
-//		double[] accelerationMagnitudes = CountStepsBlank.calculateMagnitudesFor(accelerationData);
-//
-//		double[] steps = StepCounter.countSteps(accelerationData , 2);
-		//System.out.println(Arrays.toString(steps));
-//		double[][] displayData = ArrayHelper.combineAsColumns(time, accelerationMagnitudes);
-//
-//		double[][] correspondStepsToTime = ArrayHelper.combineAsColumns(time, steps);
+		double[] time = ArrayHelper.extractColumn(sampleData, 0);
+		double[][] accelerationData = ArrayHelper.extractColumns(sampleData, new int[] { 1,2,3 });
+
+		double[] accelerationMagnitudes = CountStepsBlank.calculateMagnitudesFor(accelerationData);
+
+		double[] steps = StepCounter.countSteps(accelerationData , 2);
+		System.out.println(Arrays.toString(steps));
+		double[][] displayData = ArrayHelper.combineAsColumns(time, accelerationMagnitudes);
+
+		double[][] correspondStepsToTime = ArrayHelper.combineAsColumns(time, steps);
 
 		// DataExplorer.runDataExplorer(displayData, new String[] {"time"
 		// ,"mags"}, videofile);
 
-//		System.out.println(Arrays.toString(ArrayHelper.extractColumn(correspondStepsToTime, 0)));
-//		System.out.println(Arrays.toString(ArrayHelper.extractColumn(correspondStepsToTime, 1)));
-//		System.out.println(StepCounter.getNumSteps(steps));
+		System.out.println(Arrays.toString(ArrayHelper.extractColumn(correspondStepsToTime, 0)));
+		System.out.println(Arrays.toString(ArrayHelper.extractColumn(correspondStepsToTime, 1)));
+		System.out.println(StepCounter.getNumSteps(steps));
 		
 	}
 }
