@@ -10,7 +10,8 @@ public class CSVData {
 
 	private CSVData(double[][] data) {
 		rawData = data;
-		convertIntoMS(rawData);
+		replaceAbsoluteElapsedTimeInterval(rawData);
+		
 	}
 
 	public static CSVData createDataSet(String filepath, int linesToSkip) {
