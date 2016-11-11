@@ -111,11 +111,10 @@ public class CSVData {
 
 	public void convertIntoMS(double[][] arr) {
 		for (int r = 0; r < arr.length; r++) {
-			arr[r][0] = (1.0/arr[r][0])*(1000.0);
+			arr[r][0] = (arr[r][0]) * (1000.0);
 			System.out.println(arr[r][0]);
 		}
 	}
-	
 
 	public String getHugeStringOfData(double[][] arr) {
 		String output = "times (ms),x-accel,y-accel,z-accel\n";
@@ -130,6 +129,16 @@ public class CSVData {
 		}
 		output += "\n";
 		return output;
+	}
+
+	public void replaceAbsoluteElapsedTimeInterval(double[][] arr) {
+		int firstRowIndex = 0;
+		int timeColumnIndex =0;
+		convertIntoMS(arr);
+		for (int r = 1; r < arr.length; r++) {
+			arr[r][timeColumnIndex] = arr[r][timeColumnIndex] - arr[firstRowIndex][timeColumnIndex];
+		}
+		arr[firstRowIndex][timeColumnIndex] = 0;
 	}
 
 }
