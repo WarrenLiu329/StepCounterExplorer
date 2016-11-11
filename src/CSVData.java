@@ -111,14 +111,14 @@ public class CSVData {
 
 	public void convertIntoMS(double[][] arr) {
 		for (int r = 0; r < arr.length; r++) {
-			arr[r][0] = 1/arr[r][0];
+			arr[r][0] = (1.0/arr[r][0])*(1000.0);
+			System.out.println(arr[r][0]);
 		}
 	}
 	
 
-
 	public String getHugeStringOfData(double[][] arr) {
-		String output = "times (ms),x-accel,y-accel,z-accel \n ";
+		String output = "times (ms),x-accel,y-accel,z-accel\n";
 		for (int r = 0; r < arr.length; r++) {
 			for (int c = 0; c < arr[0].length; c++) {
 				if (c == arr[0].length - 1) {
