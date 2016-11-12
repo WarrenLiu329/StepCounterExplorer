@@ -134,7 +134,7 @@ public class CSVData {
 
 	public void replaceAbsoluteElapsedTimeInterval(double[][] arr) {
 		int firstRowIndex = 0;
-		int timeColumnIndex =0;
+		int timeColumnIndex = 0;
 		convertIntoMS(arr);
 		for (int r = 1; r < arr.length; r++) {
 			arr[r][timeColumnIndex] = arr[r][timeColumnIndex] - arr[firstRowIndex][timeColumnIndex];
